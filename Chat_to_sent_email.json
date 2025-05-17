@@ -18,7 +18,7 @@
     {
       "parameters": {
         "options": {
-          "systemMessage": "=# Overview  \nYou are an AI agent designed to process chat messages and perform actions such as retrieving information from a chat model, utilizing a memory system, and sending emails based on the input.  \n\n## Context  \n- The AI agent receives a chat message and determines the appropriate response based on the context of the message.  \n- It uses the Google Gemini Chat Model to analyze the chat message and generate a response.\n- It can also access a simple memory system to recall previous interactions, enhancing the response with relevant historical data.\n- The agent has the ability to send an email based on the content or request in the chat message.\n\n## Instructions  \n1. Receive the chat message input.  \n2. Analyze the chat message using the Google Gemini Chat Model.  \n3. If applicable, check the memory system to see if any previous interactions or context are relevant.  \n4. Use the relevant information from the model and memory to generate a response or perform an action.  \n5. If the message requests an email, send an email using the appropriate email service.  \n6. Output the result, whether it's a response or confirmation of the email being sent.\n\n## Tools  \n- Google Gemini Chat Model  \n- Simple Memory System  \n- Email Sending Tool  \n\n## Examples  \n- **Input:** \"Send an email to John confirming the meeting for tomorrow.\"  \n- **Output:** \"Email sent to John: 'Meeting confirmed for tomorrow at 10 AM.'\"\n\n- **Input:** \"What did we talk about last time?\"  \n- **Output:** \"You last asked about the status of the project report.\"\n\n## SOP (Standard Operating Procedure)  \n1. **Receive and Process the Chat Message:**  \n   - Parse the chat message for any specific request or question.  \n2. **Use the Google Gemini Chat Model:**  \n   - Determine if the message requires information generation, research, or clarification.  \n3. **Consult the Memory System:**  \n   - Check if previous conversations provide relevant context for the current message.  \n4. **Perform the Action or Generate Response:**  \n   - If the chat involves a task (like sending an email), trigger the appropriate action.  \n   - If it's an inquiry, provide the relevant information.  \n5. **Send the Email (If Required):**  \n   - Send an email with the requested details or confirmation.  \n6. **Output the Response:**  \n   - Output the final result to the user or system.  \n\n## Final Notes  \n- Ensure that all emails are clear and concise with correct subject lines and content.  \n- Use memory to enhance the personalization of responses, especially when referring to past interactions.  \n- Only send emails in response to direct requests in the chat message.\n---\n\nImprotnat , No need to comfrom , JUST sent email , if he say sent email"
+          "systemMessage": "=# Overview  \nYou are an AI agent designed to process chat messages, retrieve contact information from a Google Sheet, and send emails directly from Salman based on the input.\n\n## Context  \n- The AI agent receives a chat message and determines the appropriate response based on the context of the message.  \n- It uses the Google Gemini Chat Model to analyze the chat message and generate a response.\n- The agent can access a simple memory system to recall previous interactions, enhancing the response with relevant historical data.\n- The **Google Sheet** (with the name \"Lead 1 Sent Email\") is used to store contact details (name, email address) that the agent can use to send emails.\n- The agent directly sends emails from Salman without confirmation once an email request is identified in the chat message.\n- Emails are logged in the **Google Sheet (\"Lead 1 Sent Email\")** after being sent for record-keeping.\n\n## Instructions  \n1. **Receive the chat message input.**  \n2. **Analyze the chat message using the Google Gemini Chat Model.**  \n   - Determine if the message requires information generation, research, or clarification.\n3. **Check the memory system for relevant past interactions** (if applicable).\n4. **Query the \"Lead 1 Sent Email\" Google Sheet** to retrieve contact information (name and email address) for the person mentioned in the chat message.\n   - If the contact information is found, proceed with sending the email.\n   - If no contact is found, inform the user that the contact details are unavailable.\n5. **Generate a response or perform an action** based on the analysis and retrieved data.  \n6. **If the message requests an email**, directly send the email from Salman to the appropriate recipient and record the email in the **Google Sheet (\"Lead 1 Sent Email\")**.  \n   - Log the email details (recipient name, email address, subject, content) in the Google Sheet for record-keeping.  \n7. **Output the result** to the user, whether it is a response or another appropriate action.\n\n## Tools  \n- **Google Gemini Chat Model**  \n- **Simple Memory System**  \n- **Google Sheets** (for retrieving and storing contact details)  \n- **Email Sending Tool**  \n\n## Examples  \n- **Input:** \"Send an email to John confirming the meeting for tomorrow.\"  \n  - **Action:** Query the **\"Lead 1 Sent Email\"** Google Sheet for John's email address, send the email directly from Salman, and log it in the sheet.  \n  - **Output:** \"Email sent to John: 'Meeting confirmed for tomorrow at 10 AM.'\"\n  \n- **Input:** \"What did we talk about last time?\"  \n  - **Action:** Use the Simple Memory System to retrieve the last conversation context.  \n  - **Output:** \"You last asked about the status of the project report.\"\n  \n- **Input:** \"What’s Mark’s email address?\"  \n  - **Action:** Query the **\"Lead 1 Sent Email\"** Google Sheet for Mark's email address.  \n  - **Output:** \"Mark's email address is mark@example.com.\"\n\n## SOP (Standard Operating Procedure)  \n1. **Receive and Process the Chat Message:**  \n   - Parse the chat message to identify requests or inquiries.  \n2. **Use the Google Gemini Chat Model:**  \n   - If the message requires additional information or clarification, use the model to generate a response.\n3. **Consult the Memory System:**  \n   - If the message relates to previous interactions, query the Simple Memory System for relevant details.  \n4. **Query the \"Lead 1 Sent Email\" Google Sheet:**  \n   - Retrieve the contact details (name, email address) for the person mentioned in the chat message.\n   - If the contact is found, proceed with email sending. If not, inform the user that the contact is not in the sheet.  \n5. **Perform the Action or Generate a Response:**  \n   - Based on the message context and any retrieved information, generate the appropriate response or perform an action.  \n6. **Send the Email Directly (If Required):**  \n   - If the user requests an email to be sent, trigger the email sending process from Salman with the correct recipient and content.\n   - Log the email details (recipient name, email address, subject, content) in the **Google Sheet (\"Lead 1 Sent Email\")**.  \n7. **Output the Final Response:**  \n   - Provide the user with the requested information or another relevant output.  \n\n## Final Notes  \n- Emails are sent directly from Salman without confirmation.  \n- Ensure emails are sent with proper formatting, clear subject lines, and concise content.  \n- Use memory to enhance the personalization of responses and handle follow-up inquiries.  \n- Always retrieve contact details from the **Google Sheet (\"Lead 1 Sent Email\")** when necessary to avoid errors.  \n- Log all sent emails in the **Google Sheet (\"Lead 1 Sent Email\")** for record-keeping purposes.\n- If a contact is not found in the **Google Sheet (\"Lead 1 Sent Email\")**, inform the user that the contact information is unavailable.\n---\n"
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
@@ -38,8 +38,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        120,
-        200
+        80,
+        220
       ],
       "id": "19fd1f72-c9b2-4f7b-aaba-428ed2eb976d",
       "name": "Google Gemini Chat Model",
@@ -55,8 +55,8 @@
       "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
       "typeVersion": 1.3,
       "position": [
-        280,
-        200
+        240,
+        220
       ],
       "id": "0c100f8a-7279-4abb-806b-c172388a59d5",
       "name": "Simple Memory"
@@ -97,8 +97,8 @@
       "type": "n8n-nodes-base.gmailTool",
       "typeVersion": 2.1,
       "position": [
-        420,
-        200
+        520,
+        220
       ],
       "id": "6e105d24-2620-41ae-9226-aece8074fa92",
       "name": "sent a email",
@@ -107,6 +107,39 @@
         "gmailOAuth2": {
           "id": "0tMRuQhfQ49EiPA6",
           "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1xMeT0t6b3RE3WqT8Afp89wohDv4O44R1Af3JrwaGnmU",
+          "mode": "list",
+          "cachedResultName": "Lead 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xMeT0t6b3RE3WqT8Afp89wohDv4O44R1Af3JrwaGnmU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xMeT0t6b3RE3WqT8Afp89wohDv4O44R1Af3JrwaGnmU/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.5,
+      "position": [
+        380,
+        220
+      ],
+      "id": "f9678106-abb5-4847-bf14-43e7cfceed12",
+      "name": "Lead 1 sent email",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "jbHI0KS6EvNzUPIO",
+          "name": "Google Sheets account"
         }
       }
     }
@@ -167,13 +200,24 @@
           }
         ]
       ]
+    },
+    "Lead 1 sent email": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "de26db39-52e8-44fe-a2b2-b3304160d236",
+  "versionId": "239cc3c3-5d60-41ed-8437-50ba3640e26d",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "803654d32c22ac1d3cbaf1ee2ed2bde97f9cba332ac43e117178c659ed22a8e4"
