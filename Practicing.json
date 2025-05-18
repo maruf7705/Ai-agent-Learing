@@ -1,0 +1,137 @@
+{
+  "name": "Practicing",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        20
+      ],
+      "id": "22db5e4d-79cd-467a-895d-6e1d10104cf3",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b6b529e1-c3b6-400c-85b3-f78d80944b8f",
+              "name": "query",
+              "value": "={{ $json.query }}",
+              "type": "string"
+            },
+            {
+              "id": "40c514d5-877e-46df-a131-2b67f3b6e3a1",
+              "name": "Email",
+              "value": "md.maruf99707@gmail.com",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        140,
+        20
+      ],
+      "id": "8f77fdf9-aba0-4b52-b0ba-4fbaefff4a65",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "You are a professional intelligent email writer .",
+        "options": {
+          "systemMessage": "=query: {{ $json.query }}\nEmail: {{ $json.Email }}\n\nPlease take the query and create an email based on the information provided below. make a proper body and endling , email sending form Wapol\n\n--\nPlease do not add any additional information or instructions."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        380,
+        20
+      ],
+      "id": "2ea8920e-253a-4139-a4a9-825c717dba29",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-flash-preview-04-17-thinking",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        360,
+        200
+      ],
+      "id": "11f102da-cf35-4e22-a98f-5a459aa25b8f",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "CB7hRngOKGgxBDW0",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "When clicking ‘Test workflow’": [
+      {
+        "json": {
+          "query": "what does the fox said"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "87fde2ac-3747-42b8-9585-f6283ba0b922",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "803654d32c22ac1d3cbaf1ee2ed2bde97f9cba332ac43e117178c659ed22a8e4"
+  },
+  "id": "fH5Qq5CyQpHFjLbM",
+  "tags": []
+}
